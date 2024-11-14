@@ -1,5 +1,5 @@
-./test_trainer
-./wandb
+test_trainer
+wandb
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
