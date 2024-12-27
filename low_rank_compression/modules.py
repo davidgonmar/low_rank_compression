@@ -33,7 +33,7 @@ def linear_to_low_rank_linear(linear: nn.Linear, ratio: float):
     U, S, V_T = torch.linalg.svd(W, full_matrices=True)  # complete SVD
 
     orig_rank = min(S.shape)
-    rank = max(int(orig_rank * ratio), 16)
+    rank = max(int(orig_rank * ratio), 2)
     S = torch.diag(S[:rank])  # in R^{MIN(IN, OUT) x MIN(IN, OUT)}
     # pad S to be {IN x OUT}
     in_f, out_f = W.shape
@@ -69,7 +69,6 @@ def _to_low_rank_recursive(
 ):
     modules_to_replace = []
     for name, module in model.named_children():
-
         full_name = f"{prefix}.{name}" if prefix else name
         if isinstance(module, nn.Linear):
             if should_do(module, full_name):
